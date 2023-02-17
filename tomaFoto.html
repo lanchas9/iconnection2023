@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iconnection2023.com</title>
+    <link rel="stylesheet" href="assets/css/style2.css">
+</head>
+<body>
+    <video autoplay id="video" class="camaraSelfie"></video>
+    <canvas id="canvas" class="camaraSelfie oculto"></canvas>
+    <div>
+        <button class="myButton" onclick="abreCamara()" id="botonTomaFoto">ABRIR CAMARA</button>
+        <button class="myButton oculto" onclick="buscarGaleria()" id="botonBuscarGaleria">BUSCAR EN GALERÍA</button>
+    </div>
+    
+<script >
+
+    let modoBoton = 'paso1'
+    let camaraAbierta = false;
+
+    async function abreCamara(){
+        if(!camaraAbierta){
+            camaraAbierta = true;
+            let constraints
+            if(window.location.hostname == "localhost"){
+                constraints= {
+                video: {
+                    width: {
+                        min: 480,
+                        ideal: 480,
+                        max: 480,
+                    },
+                    height: {
+                        min: 480,
+                        ideal:  480,
+                        max: 480,
+                    },
+                    facingMode: 'user'
+                    , video: true
+                    },
+                }
+            }else if(window.innerHeight > window.innerWidth){
+                constraints = {
+                video: {
+                    width: {
+                        min: 480,
+                        ideal: 480,
+                        max: 480,
+                    },
+                    height: {
+                        min: 480,
+                        ideal:  480,
+                        max: 480,
+                    },
+                    facingMode: 'user'
+                    , video: true
+                 },
+                }
+            }else{
+                constraints = {
+                video: {
+                    width: {
+                        min: 480,
+                        ideal: 480,
+                        max: 480,
+                    },
+                    height: {
+                        min: 480,
+                        ideal:  480,
+                        max: 480,
+                    },
+                    facingMode: 'user'
+                    , video: true
+                },
+            }
+            }
+
+            //TOMA DE FOTOGRAFÍA VERSION 1 DECAPRITADED
+            /*
+            if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({video: true})
+            
+            try{
+                const videoStream = await navigator.mediaDevices.getUserMedia(constraints)
+                const video = document.querySelector('#video')
+                video.srcObject = videoStream
+            }catch(error){
+                console.error("Error : " + error)
+            }
+        }
+        */
+        //fin
+        // alert("Objeto : " + navigator.mediaDevices)
+        try{
+        if (!navigator.mediaDevices && !navigator.mediaDevices.getUserMedia) {
+             navigator.userMedia = navigator.mozGetUserMedia || navigator.getUserMedia
+            if (!navigator.userMedia) {
+                alert("Please Update or Use Different Browser");
+            return
+            }
+            navigator.userMedia(constraints, (stream) => showCam(stream), (err) => showErr(err))
+            return
+        }
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then((stream) => showCam(stream))
+                .catch((err) => showErr(err))
+
+            }catch(error){
+                alert("Error mensaje: " + error);
+            }
+        }else{
+            tomaFoto()
+        }
+    }
+
+    
+    function showCam(stream) {
+        let video = document.querySelector("#video");
+        video.setAttribute("playsinline", true);
+        video.srcObject = stream;
+        // video.height = video.scrollWidth * 1.33
+        let btn1 = document.getElementById("botonTomaFoto")
+        btn1.innerHTML = "TOMAR SELFIE"
+    }
+
+    function showErr(err) {
+        let message = err.name === "NotFoundError" ? "Please Attach Camera" :
+        err.name === "NotAllowedError" ? "Please Grant Permission to Access Camera" : err
+        alert(message)
+    }
+
+    async function tomaFoto(){
+        if(modoBoton == 'paso1'){
+            const canvas = document.querySelector('#canvas')
+            const video = document.querySelector('#video')
+            canvas.width = video.videoWidth
+            canvas.height = video.videoHeight
+            canvas.getContext('2d').drawImage(video, 0, 0)
+            canvas.className  ="camaraSelfie visible"
+            constraints= {
+                    video: {
+                        width: {
+                            min: 380,
+                            ideal: 400,
+                            max: 420,
+                        },
+                        height: {
+                            min: 380,
+                            ideal: 400,
+                            max: 420,
+                        },
+                        facingMode: 'user'
+                        },
+                    }
+                // const videoStream = await navigator.mediaDevices.getUserMedia(constraints)
+                // videoStream.getTracks().forEach((track) => {
+                //     track.stop()
+                // })
+                video.className = "camaraSelfie oculto"
+                let btn1 = document.getElementById("botonTomaFoto")
+                btn1.innerHTML = "REPETIR FOTO"
+                let btn2 = document.getElementById("botonBuscarGaleria")
+                btn2.innerHTML = "GUARDAR FOTO"
+                btn2.className = "myButton"
+                btn2.style.display = "block"
+                modoBoton = 'paso2'
+        }else{
+            const canvas = document.querySelector('#canvas')
+            const video = document.querySelector('#video')
+            canvas.className = "camaraSelfie oculto"
+            video.className = "camaraSelfie visible"
+            //cargaResultados()
+            modoBoton = 'paso1'
+            let btn2 = document.getElementById("botonBuscarGaleria")
+            btn2.style.display = "none"
+            let btn1 = document.getElementById("botonTomaFoto")
+            btn1.innerHTML = "TOMAR SELFIE"
+        }
+        
+    }
+
+    async function buscarGaleria(){
+        if(modoBoton == 'paso1'){
+            modoBoton = 'paso2'
+        }else{
+            modoBoton = 'paso1'
+            // console.log("Hacemos upLoad de foto y vamos a registro Exitoso ")
+            
+            let person = prompt("Compartenos tu nombre Completo por favor", "iconnection2023.com");
+            let text;
+            if (person == null || person == "") {
+                text = "Nombre usuario no disponible";
+            } else {
+                text = person;
+            }
+
+            const canvas = document.querySelector('#canvas')
+            let img = await canvas.toBlob(function(blob){
+                //////////////
+                const formData = new FormData();
+                let resul = {
+                    error : true,
+                    message: "",
+                    statusCode: 0
+                }
+                let nombreFoto = Date.now()
+
+                formData.append(nombreFoto, blob, nombreFoto + '.jpg');
+
+                const options = {
+                    method: 'POST',
+                    body: formData
+                };
+
+                fetch(`https://mosaico.app:4000/iconnection2023/uploadSelfie?nombreInvitadoCuadricula=`+text, options).then(r => r.json()).then(data => {
+                        //Your logic, in my case I get JSON from server
+                        if(data.statusCode == 200){
+                                resul.error = false
+                                resul.statusCode = data.statusCode
+                                resul.message = data.message
+                                window.location.href = "index.html" 
+                         }else{                        
+                            resul.statusCode = data.statusCode
+                            resul.message = data.message
+                            }
+                });
+            },'image/jpeg', 0.95)            
+        }
+    }
+
+</script>
+</body>
+</html>
