@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="assets/css/style2.css">
 </head>
 <body>
-    <video autoplay id="video" class="camaraSelfie"></video>
-    <canvas id="canvas" class="camaraSelfie oculto"></canvas>
-    <div>
-        <button class="myButton" onclick="abreCamara()" id="botonTomaFoto">ABRIR CAMARA</button>
-        <button class="myButton oculto" onclick="buscarGaleria()" id="botonBuscarGaleria">BUSCAR EN GALERÍA</button>
-    </div>
-    
+    <div class="marco">
+        <video autoplay id="video" class="camaraSelfie"></video>
+        <canvas id="canvas" class="camaraSelfie ocultoCanvas"></canvas>
+        <div>
+            <button class="myButton" onclick="abreCamara()" id="botonTomaFoto">ABRIR CAMARA</button>
+            <button class="myButton ocultoBtn" onclick="buscarGaleria()" id="botonBuscarGaleria">BUSCAR EN GALERÍA</button>
+        </div>
+</div>
 <script >
 
     let modoBoton = 'paso1'
@@ -139,7 +140,7 @@
             canvas.width = video.videoWidth
             canvas.height = video.videoHeight
             canvas.getContext('2d').drawImage(video, 0, 0)
-            canvas.className  ="camaraSelfie visible"
+            canvas.className  ="camaraSelfie2 visibleCanvas"
             constraints= {
                     video: {
                         width: {
@@ -159,23 +160,22 @@
                 // videoStream.getTracks().forEach((track) => {
                 //     track.stop()
                 // })
-                video.className = "camaraSelfie oculto"
+                video.className = "camaraSelfie2 oculto"
                 let btn1 = document.getElementById("botonTomaFoto")
                 btn1.innerHTML = "REPETIR FOTO"
                 let btn2 = document.getElementById("botonBuscarGaleria")
                 btn2.innerHTML = "GUARDAR FOTO"
-                btn2.className = "myButton"
-                btn2.style.display = "block"
+                btn2.className = "myButton visibleBtn"
                 modoBoton = 'paso2'
         }else{
             const canvas = document.querySelector('#canvas')
             const video = document.querySelector('#video')
-            canvas.className = "camaraSelfie oculto"
-            video.className = "camaraSelfie visible"
+            canvas.className = "camaraSelfie2 ocultoCanvas"
+            video.className = "camaraSelfie2 visibleCanvas"
             //cargaResultados()
             modoBoton = 'paso1'
             let btn2 = document.getElementById("botonBuscarGaleria")
-            btn2.style.display = "none"
+            btn2.className = "myButton ocultoBtn"
             let btn1 = document.getElementById("botonTomaFoto")
             btn1.innerHTML = "TOMAR SELFIE"
         }

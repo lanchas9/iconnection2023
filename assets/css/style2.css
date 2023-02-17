@@ -29,3 +29,53 @@ canvas {
 .oculto{
     display: none;
 }
+
+.visible{
+	display: block;
+}
+
+.ocultoCanvas{
+    display: none;
+}
+
+.visibleCanvas{
+	display: block;
+}
+
+.ocultoBtn{
+	visibility: hidden;
+}
+
+.visibleBtn{
+	visibility: visible;
+}
+
+.camaraSelfie{
+	border: 1px;
+	border-color: #000000;
+	width: 50%;
+	height: 50%;
+	left: 25%;
+	margin-top: 5%;
+}
+
+.camaraSelfie2{
+	border: 1px;
+	border-color: #000000;
+	width: 50%;
+	height: 50%;
+	left: 25%;
+	margin-top: 5%;
+	position: relative;
+}
+
+.marco{
+	display: block;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	/* background-color: grey; */
+	border-radius: 10px;
+	align-content: center;
+	text-align: center;
+}
