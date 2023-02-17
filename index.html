@@ -275,10 +275,11 @@
                 estadoAnimacion = 4;
                 //agregaBackColor();  //agrega color atras del mosaico
                 
-                agregaCuadricula(); //agrega las fotos a desplegar 
                 agregaBackground(); //agrega el jpg original
+                agregaCuadricula(); //agrega las fotos a desplegar 
+                
                 //agregaOverlayTransparente(); //Grid cuadricula
-                //agregaOverlayImagen(); //agrega la imagen de overlay
+                agregaOverlayImagen(); //agrega la imagen de overlay
                 //agregaBienvenida();
                 preparaAnimacion();
                 if (modalidadDeBotonBuscar) {
@@ -675,7 +676,7 @@
             }
 
         function agregaOverlayImagen() {
-                const texture = PIXI.Texture.from('overlay2.png');
+                const texture = PIXI.Texture.from('mosaicoLOW.jpg');
                 //const texture = PIXI.Texture.from('coordenadasWEB/Diapositiva' + index + '.JPG');
                 const img = new PIXI.Sprite(texture);   
                 //img.x = (app.renderer.width - maxsize) / 2;
@@ -690,7 +691,7 @@
                 // background.lineStyle(5, 0x00ff00);
                 //background.beginFill(0xff0000);
                 //background.drawCircle(0,0, background.width/2);
-                img.alpha = 1.0; //ALPHA de overlay para que se vea completo
+                img.alpha = 0.70; //ALPHA de overlay para que se vea completo
                 //background.drawRect(0, 0, maxsize, maxsize);
                 //background.endFill();
                 app.stage.addChild(img);
