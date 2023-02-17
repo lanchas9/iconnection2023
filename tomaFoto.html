@@ -221,7 +221,7 @@
                                 resul.error = false
                                 resul.statusCode = data.statusCode
                                 resul.message = data.message
-                                window.location.href = "index.html" 
+                                abrePhotobooth()
                          }else{                        
                             resul.statusCode = data.statusCode
                             resul.message = data.message
@@ -230,6 +230,28 @@
             },'image/jpeg', 0.95)            
         }
     }
+
+    function abrePhotobooth(){
+            muestraLoading()
+            setTimeout(() => {
+                window.location.href = 'https://iconnection2023.com/index.html'
+            }, 10000);
+        }
+
+        function muestraLoading(){
+            let divNuevo = document.createElement("Div")
+            divNuevo.width = window.innerWidth
+            divNuevo.height = window.innerHeight
+            divNuevo.style.opacity= 0.7;
+            divNuevo.style.position = "absolute";
+            divNuevo.style.top = "0px";
+
+            let loadingNuevo = document.createElement("Img")
+            loadingNuevo.src = "/assets/img/loading.gif"
+            loadingNuevo.width = window.innerWidth
+            divNuevo.appendChild(loadingNuevo)
+            document.body.append(divNuevo)
+        }
 
 </script>
 </body>
