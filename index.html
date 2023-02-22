@@ -348,10 +348,10 @@
 
     function animate3(){
         if (animacionXclick){
-            if (randomIndex == (idFotoXclick - 1)){
+            if (randomIndex == (idFotoXclick )){
                 animate2();
             }else{ 
-                randomIndex = idFotoXclick -1;
+                randomIndex = idFotoXclick ;
                 preparaAnimacion();
                 estadoAnimacion = 0;
                 animate2();
@@ -1180,7 +1180,7 @@
                         imgH = img.height
                         img.anchor.x = 0.5;
                         img.anchor.y = 0.5;
-                        img.identifier = index-1;
+                        img.identifier = index;
                         img.on('click', abreFoto);
                         img.on('tap',  abreFoto);
                         // img.on('pointerdown',  abreFoto);
