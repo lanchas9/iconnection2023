@@ -351,7 +351,8 @@
             if (randomIndex == (idFotoXclick )){
                 animate2();
             }else{ 
-                randomIndex = idFotoXclick ;
+                idFotoXclick = idFotoXclick;
+                randomIndex = idFotoXclick;
                 preparaAnimacion();
                 estadoAnimacion = 0;
                 animate2();
@@ -968,7 +969,7 @@
                 arrayResultadosSprites.forEach(quitaDeStage);
                 arrayResultadosSprites = [];
                 arrayResultados.forEach(muestraFotoDeBusqueda);
-                guardaBusqueda();
+                //guardaBusqueda();
             }
 
             function guardaBusqueda(){
@@ -1020,7 +1021,7 @@
                     // let texture = new PIXI.Texture.from('originalesWEB/' + arrayNombresFotos[idNombre].nombreFoto);
                     let limiteAncho = 8;
                     //let texture = new PIXI.Texture.from('originalesWEB/' + arrayNombresFotos[arrayHotZones[item.id - 1].id - 1].pathFull);
-                    let texture = new PIXI.Texture.from(pathSkandia + 'originalesWEB/' + arrayNombresFotos[index].pathFull);
+                    let texture = new PIXI.Texture.from(pathSkandia + 'originalesWEB/' + arrayNombresFotos[item.id - 1].pathFull);
 
                     const img = new PIXI.Sprite(texture);
                     // img.x = popUp.x + (popUp.width / 8 / 2) + (indexMuestraResultados * index);
@@ -1031,7 +1032,7 @@
                     // img.y = (Math.floor(index/limiteAncho) * (inputLabel.y + inputLabel.height + (popUp.width / 10)) + (inputLabel.y + inputLabel.height + (popUp.width / 10)));
                     img.y = (Math.floor(index/limiteAncho) * ((popUp.width / 10)) + (basicText.y + basicText.height + (popUp.width / 20)));
                     
-                    img.identifier = index;
+                    img.identifier = item.id - 1;
                     // Opt-in to interactivity
                     img.interactive = true;
 
@@ -1041,11 +1042,13 @@
                     // Pointers normalize touch and mouse
                     
                     img.on('tap', (event) => {
-                        imagenParaAnimar = arrayNombresFotos[index].id;
+                        //imagenParaAnimar = arrayNombresFotos[index].id;
+                        imagenParaAnimar = img.identifier 
                         quitaPopUp();
                     });
                     img.on('click', (event) => {
-                        imagenParaAnimar = arrayNombresFotos[index].id;
+                        //imagenParaAnimar = arrayNombresFotos[index].id;
+                        imagenParaAnimar = img.identifier
                         quitaPopUp();
                     });
                     // img.on('pointerdown', (event) => {
@@ -1101,7 +1104,7 @@
             function buscaNombreEn(item, index){
                 let nombreParaBuscar = accent_fold(inputLabel.text.toLowerCase());
                 let nombreActual = accent_fold(item.nombreUsuario.toLowerCase());
-                if (nombreActual.search(nombreParaBuscar) >= 0) {
+                if (nombreActual.indexOf(nombreParaBuscar) >= 0) {
                     arrayResultados.push({
                         id: item.id,
                         filename: item.archivo,
