@@ -75,7 +75,7 @@
     //var jsonFile = 'table.json'
     // let pathSkandia = 'https://mosaico.app:4320/public/'
     // let pathSkandia = 'https://mosaico.app/gallery/api/public/clients/'
-    let jsonFile = 'https://mosaico.app:4000/iconnection2023/dameEstructuraMosaico'
+    let jsonFile = 'https://mosaico.app:4000/iconnection2023/dameEstructuraMosaico2'
 
     let pathSkandia = 'https://mosaico.app:4433/iconnection2023/'; 
     
@@ -89,15 +89,15 @@
                     var item = final[key];
                     index++;
                     arrayNombresFotos.push({
-                        id: item.idCuadricula,
-                        //id: index,
+                        //id: item.idCuadricula,
+                        id: index,
                         path : item.filenameCuadricula,
                         check : true,
                         pathFull : item.filenameCuadricula,
                     });
                     arrayNombresPersonas.push({
-                        id: item.idCuadricula,
-                        //id: index,
+                        //id: item.idCuadricula,
+                        id: index,
                         nombreUsuario: item.nombreInvitadoCuadricula,
                         archivo: item.filenameCuadricula
                     });
